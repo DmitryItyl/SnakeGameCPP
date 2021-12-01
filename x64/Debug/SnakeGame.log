@@ -1,0 +1,3 @@
+﻿  SnakeGame.cpp
+D:\teo\cpprepos\Snake_game\SnakeGame\SnakeGame.cpp(7,24): error C2143: syntax error: missing ';' before '-'
+D:\teo\cpprepos\Snake_game\SnakeGame\SnakeGame.cpp(7,24): error C2734: 'SCREEN_WIDTH': 'const' object must be initialized if not 'extern'
