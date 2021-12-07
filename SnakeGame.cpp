@@ -3,71 +3,9 @@
 #include <SDL_ttf.h>
 #include <iostream>
 
-#include "LTexture.h"
-#include "Character.h"
-
-
-bool init();
-bool loadMedia();
-void close();
-
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
-
-SDL_Window* gWindow = NULL;
-SDL_Renderer* gRenderer = NULL;
-
 
 int main(int argc, char* args[])
 {
-    if (!init())
-    {
-        printf("Failed to initialize!\n");
-    }
-    else
-    {
-        if (!loadMedia())
-        {
-            printf("Failed to load media!\n");
-        }
-        else
-        {
-            bool quit = false;
-
-
-            SDL_Event e;
-
-
-            Character snake;
-
-
-            snake.addSegment();
-
-
-            while (!quit)
-            {
-                snake.render();
-
-                while (SDL_PollEvent(&e) != 0)
-                {
-                    if (e.type == SDL_QUIT)
-                    {
-                        quit = true;
-                    }
-                }
-
-                SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-                SDL_RenderClear(gRenderer);
-
-                SDL_RenderPresent(gRenderer);
-            }
-        }
-    }
-
-
-    close();
-    
-
     return 0;
 }
 
@@ -115,24 +53,9 @@ bool init()
         }
     }
 
-
     return success;
 }
 
-bool loadMedia()
-{
-    bool success = true;
-
-    LTexture tempTexture;
-    if (!tempTexture.loadFromFile("segment.png"))
-    {
-        printf("Failed to load character texture!\n");
-        success = false;
-    }
-
-
-    return success;
-}
 
 void close()
 {

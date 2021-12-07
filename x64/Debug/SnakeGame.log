@@ -1,35 +1,6 @@
-﻿  Character.cpp
-D:\teo\cpprepos\Snake_game\SnakeGame\Character.cpp(8,10): error C2065: 'SCREEN_HEIGHT': undeclared identifier
-D:\teo\cpprepos\Snake_game\SnakeGame\Character.cpp(9,10): error C2065: 'SCREEN_WIDTH': undeclared identifier
-D:\teo\cpprepos\Snake_game\SnakeGame\Character.cpp(58,45): error C2660: 'LTexture::loadFromFile': function does not take 1 arguments
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.h(16,7): message : see declaration of 'LTexture::loadFromFile'
-D:\teo\cpprepos\Snake_game\SnakeGame\Character.cpp(63,45): error C2660: 'LTexture::render': function does not take 3 arguments
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.h(17,7): message : see declaration of 'LTexture::render'
-D:\teo\cpprepos\Snake_game\SnakeGame\Character.cpp(74,38): error C2660: 'LTexture::render': function does not take 3 arguments
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.h(17,7): message : see declaration of 'LTexture::render'
-D:\teo\cpprepos\Snake_game\SnakeGame\Character.cpp(86,16): error C2065: 'SCREEN_HEIGHT': undeclared identifier
-D:\teo\cpprepos\Snake_game\SnakeGame\Character.cpp(87,16): error C2065: 'SCREEN_WIDTH': undeclared identifier
-  LTexture.cpp
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.cpp(47,1): error C2511: 'bool LTexture::loadFromFile(std::string)': overloaded member function not found in 'LTexture'
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.h(9): message : see declaration of 'LTexture'
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.cpp(48,2): error C2352: 'LTexture::free': illegal call of non-static member function
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.cpp(10): message : see declaration of 'LTexture::free'
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.cpp(61,45): error C2065: 'gRenderer': undeclared identifier
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.cpp(68,4): error C2597: illegal reference to non-static member 'LTexture::mWidth'
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.cpp(69,4): error C2597: illegal reference to non-static member 'LTexture::mHeight'
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.cpp(75,2): error C2597: illegal reference to non-static member 'LTexture::mTexture'
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.cpp(76,25): error C2597: illegal reference to non-static member 'LTexture::mTexture'
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.cpp(76,25): error C3867: 'LTexture::mTexture': non-standard syntax; use '&' to create a pointer to member
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.cpp(80,1): error C2511: 'void LTexture::render(int,int,double)': overloaded member function not found in 'LTexture'
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.h(9): message : see declaration of 'LTexture'
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.cpp(81,32): error C2597: illegal reference to non-static member 'LTexture::mWidth'
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.cpp(81,40): error C2597: illegal reference to non-static member 'LTexture::mHeight'
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.cpp(81,48): error C2440: 'initializing': cannot convert from 'unknown' to 'int'
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.cpp(81,32): message : There is no context in which this conversion is possible
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.cpp(83,19): error C2065: 'gRenderer': undeclared identifier
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.cpp(83,30): error C2597: illegal reference to non-static member 'LTexture::mTexture'
+﻿  Snake.cpp
+D:\teo\cpprepos\Snake_game\SnakeGame\Snake.h(11,1): error C2236: unexpected token 'class'. Did you forget a ';'?
+D:\teo\cpprepos\Snake_game\SnakeGame\Snake.h(12,1): error C3381: 'Snake': assembly access specifiers are only available in code compiled with a /clr option
   SnakeGame.cpp
-D:\teo\cpprepos\Snake_game\SnakeGame\SnakeGame.cpp(78,38): warning C4804: '<': unsafe use of type 'bool' in operation
-D:\teo\cpprepos\Snake_game\SnakeGame\SnakeGame.cpp(127,8): error C2660: 'LTexture::loadFromFile': function does not take 1 arguments
-D:\teo\cpprepos\Snake_game\SnakeGame\LTexture.h(16,7): message : see declaration of 'LTexture::loadFromFile'
+D:\teo\cpprepos\Snake_game\SnakeGame\SnakeGame.cpp(59,38): warning C4804: '<': unsafe use of type 'bool' in operation
   Generating Code...
