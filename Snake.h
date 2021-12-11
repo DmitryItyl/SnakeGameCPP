@@ -9,7 +9,7 @@
 
 
 #include "SDL_Media.h"
-
+#include "GlobalConstants.h"
 
 static const char NORTH = 0;
 static const char WEST = 1;
@@ -38,10 +38,10 @@ class Snake
 public:
     Snake(int startX, int startY);
     ~Snake();
-    void addSegment(int x, int y);
+    void addSegment();
     void move();
     void setDirection(char dir);
-    void render(SDL_Renderer* renderer, int cellSize);
+    void render(SDL_Renderer* renderer);
 
     std::vector<Segment*> body;
 

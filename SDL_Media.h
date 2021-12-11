@@ -10,6 +10,7 @@
 
 
 #include "Snake.h"
+#include "GlobalConstants.h"
 
 
 class SDL_Media
@@ -17,15 +18,14 @@ class SDL_Media
 
 public:
     SDL_Media();
-    //~SDL_Media();
+    ~SDL_Media();
     
     void clear();
     void update();
 
     void setPlayBoard(int cellSize);
 
-    const int SCREEN_WIDTH = 640;
-    const int SCREEN_HEIGHT = 480;
+    SDL_Texture* loadTexture(std::string source);
 
     SDL_Renderer* renderer = nullptr;
 

@@ -40,7 +40,7 @@ SDL_Media::SDL_Media()
 }
 
 
-/* SDL_Media::~SDL_Media()
+ SDL_Media::~SDL_Media()
 {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
@@ -51,11 +51,11 @@ SDL_Media::SDL_Media()
     IMG_Quit();
     SDL_Quit();
 }
-*/
+
 
 void SDL_Media::clear()
 {
-    //SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(renderer);
 }
 
@@ -63,4 +63,23 @@ void SDL_Media::clear()
 void SDL_Media::update()
 {
     SDL_RenderPresent(renderer);
+}
+
+
+SDL_Texture* SDL_Media::loadTexture(std::string source)
+{
+    SDL_Surface* tempSurface = IMG_Load(source.c_str());
+    if (!tempSurface)
+    {
+        printf("Failed to load image %s! SDL Image Error: ", source.c_str(), IMG_GetError());
+    }
+    else
+    {
+        SDL_SetColorKey(tempSurface, SDL_TRUE, SDL_MapRGB(tempSurface->format, 0xFF, 0xFF, 0xFF));
+
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
+        SDL_FreeSurface(tempSurface);
+
+        return texture;
+    }
 }

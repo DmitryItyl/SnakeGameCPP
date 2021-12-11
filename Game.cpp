@@ -1,25 +1,33 @@
 #include "Game.h"
 
 
-Game::Game(SDL_Media uframework)
+Game::Game()
 {
-    framework = &uframework;
-    snake = new Snake(framework->SCREEN_WIDTH / 2, framework->SCREEN_HEIGHT / 2);
+    framework = new SDL_Media();
+    snake = new Snake(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 }
 
 
 Game::~Game()
 {
     delete snake;
+    delete framework;
 }
 
 
 void Game::run()
 {
     bool running = true;
+
+    const int frameDelay = 1000 / FRAMERATE;
+
+    Uint32 frameTime;
+    int frameElapsedTime;
+
     SDL_Event event;
     do
     {
+        frameTime = SDL_GetTicks();
         while (SDL_PollEvent(&event))
         {
             if (event.type == SDL_KEYDOWN)
@@ -30,16 +38,16 @@ void Game::run()
                     snake->setDirection(NORTH);
                     break;
                 case SDLK_RIGHT:
-                    snake->setDirection(WEST);
+                    snake->setDirection(EAST);
                     break;
                 case SDLK_DOWN:
                     snake->setDirection(SOUTH);
                     break;
                 case SDLK_LEFT:
-                    snake->setDirection(EAST);
+                    snake->setDirection(WEST);
                     break;
                 case SDLK_RETURN:
-                    snake->addSegment(snake->body.back()->x, snake->body.back()->y);
+                    snake->addSegment();
                     break;
                 default:
                     break;
@@ -51,6 +59,12 @@ void Game::run()
         framework->clear();
         render();
         framework->update();
+
+        frameElapsedTime = SDL_GetTicks() - frameTime;
+        if (frameDelay > frameElapsedTime)
+        {
+            SDL_Delay(frameDelay - frameElapsedTime);
+        }
     } while (running);
 }
 
@@ -63,5 +77,5 @@ void Game::update()
 
 void Game::render()
 {
-    snake->render(framework->renderer, cellSize);
+    snake->render(framework->renderer);
 }

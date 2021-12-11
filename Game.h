@@ -9,7 +9,7 @@ class Game
 
 public:
 
-    Game(SDL_Media uframework);
+    Game();
     ~Game();
     void run();
     void update();

@@ -11,9 +11,9 @@
 
 int main(int argc, char* args[])
 {
-    SDL_Media framework;
+    //SDL_Media framework;
 
-    Game game = Game(framework);
+    Game game;
 
     game.run();
 
