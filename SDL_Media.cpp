@@ -40,7 +40,7 @@ SDL_Media::SDL_Media()
 }
 
 
-SDL_Media::~SDL_Media()
+/* SDL_Media::~SDL_Media()
 {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
@@ -51,9 +51,16 @@ SDL_Media::~SDL_Media()
     IMG_Quit();
     SDL_Quit();
 }
+*/
 
-
-void SDL_Media::renderOnScreen(std::string filePath)
+void SDL_Media::clear()
 {
-    
+    //SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_RenderClear(renderer);
+}
+
+
+void SDL_Media::update()
+{
+    SDL_RenderPresent(renderer);
 }

@@ -1,6 +1,0 @@
-﻿  Snake.cpp
-D:\teo\cpprepos\Snake_game\SnakeGame\Snake.h(11,1): error C2236: unexpected token 'class'. Did you forget a ';'?
-D:\teo\cpprepos\Snake_game\SnakeGame\Snake.h(12,1): error C3381: 'Snake': assembly access specifiers are only available in code compiled with a /clr option
-  SnakeGame.cpp
-D:\teo\cpprepos\Snake_game\SnakeGame\SnakeGame.cpp(59,38): warning C4804: '<': unsafe use of type 'bool' in operation
-  Generating Code...

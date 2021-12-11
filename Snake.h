@@ -8,14 +8,26 @@
 #include <string>
 
 
+#include "SDL_Media.h"
+
+
+static const char NORTH = 0;
+static const char WEST = 1;
+static const char SOUTH = 2;
+static const char EAST = 3;
+
+
 struct Segment
 {
     int x;
     int y;
-    Segment(int posX, int posY)
+    std::string textureSource;
+    char direction;
+    Segment(int posX, int posY, char _direction)
     {
         x = posX;
         y = posY;
+        direction = _direction;
     }
 };
 
@@ -24,22 +36,18 @@ class Snake
 {
 
 public:
-    Snake(int startX, int startY, char dir);
+    Snake(int startX, int startY);
     ~Snake();
     void addSegment(int x, int y);
     void move();
     void setDirection(char dir);
+    void render(SDL_Renderer* renderer, int cellSize);
 
-    static const char NORTH = 0;
-    static const char WEST  = 1;
-    static const char SOUTH = 2;
-    static const char EAST  = 3;
+    std::vector<Segment*> body;
 
 private:
-    std::vector<Segment*> body;
-    char direction;
-    SDL_Texture* headTexture;
-    SDL_Texture* bodyTexture;
+    std::string headSourceFilePath;
+    std::string bodySourceFilePath;
 };
 
 #endif
