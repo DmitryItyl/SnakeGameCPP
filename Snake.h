@@ -21,7 +21,7 @@ struct Segment
 {
     int x;
     int y;
-    std::string textureSource;
+    SDL_Texture* texture;
     char direction;
     Segment(int posX, int posY, char _direction)
     {
@@ -44,10 +44,11 @@ public:
     void render(SDL_Renderer* renderer);
 
     std::vector<Segment*> body;
-
-private:
     std::string headSourceFilePath;
     std::string bodySourceFilePath;
+    
+    SDL_Texture* headTexture = nullptr;
+    SDL_Texture* bodyTexture = nullptr;
 };
 
 #endif

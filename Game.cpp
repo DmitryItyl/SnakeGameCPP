@@ -5,6 +5,11 @@ Game::Game()
 {
     framework = new SDL_Media();
     snake = new Snake(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+
+    snake->headTexture = framework->loadTexture(snake->headSourceFilePath);
+    snake->bodyTexture = framework->loadTexture(snake->bodySourceFilePath);
+
+    snake->addSegment();
 }
 
 

@@ -27,7 +27,7 @@ SDL_Media::SDL_Media()
             }
             else
             {
-                SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+                SDL_SetRenderDrawColor(renderer, 79, 79, 79, 0xFF);
 
                 int imgFlags = IMG_INIT_PNG;
                 if (!(IMG_Init(imgFlags) & imgFlags))
@@ -55,7 +55,7 @@ SDL_Media::SDL_Media()
 
 void SDL_Media::clear()
 {
-    SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_SetRenderDrawColor(renderer, 79, 79, 79, 0xFF);
     SDL_RenderClear(renderer);
 }
 
