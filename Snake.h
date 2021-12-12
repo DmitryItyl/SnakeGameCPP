@@ -65,6 +65,7 @@ public:
 
 private:
     void addSegment();
+    char newDirection = 1;
 };
 
 #endif

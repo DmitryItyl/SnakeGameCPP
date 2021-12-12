@@ -5,7 +5,7 @@
 const int CELL_SIZE = 32;
 
 
-const int GRID_W = 20;
+const int GRID_W = 22;
 const int GRID_H = 16;
 
 

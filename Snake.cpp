@@ -66,6 +66,8 @@ void Snake::addSegment()
 
 void Snake::move()
 {
+    body.front()->direction = newDirection;
+
     for (int i = body.size() - 1; i > 0; i--)
     {
         body[i]->x = body[i - 1]->x;
@@ -134,7 +136,7 @@ void Snake::setDirection(char dir)
         if (dir == WEST) return;
         break;
     }
-    body.front()->direction = dir;
+    newDirection = dir;
 }
 
 

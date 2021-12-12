@@ -12,11 +12,12 @@ Game::Game()
     snake->turnTexture = framework->loadTexture(snake->turnSourceFilePath);
     snake->tailTexture = framework->loadTexture(snake->tailSourceFilePath);
 
-
+    srand(SDL_GetTicks());
 
     food = new Food(0, 0);
     genNewFood();
     
+    snakeAlive = true;
 
     foodTextureSource = "img/food.png";
     food->texture = framework->loadTexture(foodTextureSource);
@@ -42,7 +43,6 @@ void Game::run()
     SDL_Event event;
     do
     {
-
         frameTime = SDL_GetTicks();
         while (SDL_PollEvent(&event))
         {
@@ -66,7 +66,10 @@ void Game::run()
                     break;
                 }
             }
-            else if (event.type == SDL_QUIT) running = false;
+            else if (event.type == SDL_QUIT)
+            {
+                return;
+            }
         }
         update();
         framework->clear();
@@ -78,17 +81,26 @@ void Game::run()
         {
             SDL_Delay(frameDelay - frameElapsedTime);
         }
-    } while (running);
+        
+    } while (snakeAlive);
 }
 
 
 void Game::update()
 {
     snake->move();
+
     if (snake->checkFood(food->x, food->y))
     {
         score++;
         genNewFood();
+    }
+
+    Segment* head = snake->body.front();
+    if (snake->detectCollision(head->x, head->y, false))
+    {
+        snakeAlive = false;
+        handleEndGame();
     }
 }
 
@@ -118,4 +130,32 @@ void Game::genNewFood()
         food->y = rand() % GRID_H * CELL_SIZE;
     } while (snake->detectCollision(food->x, food->y, true));
 
+}
+
+
+void Game::handleEndGame()
+{
+    framework->renderGameOverScreen(score);
+    framework->update();
+
+    SDL_Event userInput;
+    while (true)
+    {
+        while (SDL_PollEvent(&userInput))
+        {
+            if (userInput.type == SDL_KEYDOWN)
+            {
+                if (userInput.key.keysym.sym == SDLK_SPACE)
+                {
+                    repeatGame = true;
+                    return;
+                }
+                else if (userInput.key.keysym.sym == SDLK_ESCAPE)
+                {
+                    repeatGame = false;
+                    return;
+                }
+            }
+        }
+    }
 }

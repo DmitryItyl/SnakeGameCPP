@@ -13,9 +13,18 @@ int main(int argc, char* args[])
 {
     //SDL_Media framework;
 
-    Game game;
+    while (true)
+    {
+        Game game;
 
-    game.run();
+        game.run();
+
+        if (!game.repeatGame)
+        {
+            break;
+        }
+    }
+
 
     return 0;
 }

@@ -101,12 +101,14 @@ SDL_Texture* SDL_Media::loadTexture(std::string source)
 }
 
 
-void SDL_Media::renderScore(int score)
+void SDL_Media::renderText(std::string text, int fontSize, int x, int y)
 {
-    std::string scoreText = "Score: " + std::to_string(score);
+    TTF_Font* textFont = TTF_OpenFont("font/calibri.ttf", fontSize);
+
+
     SDL_Color textColor = { 0xFF, 0xFF, 0xFF, 0xFF };
-    
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font, scoreText.c_str(), textColor);
+    SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
+
     if (textSurface != NULL)
     {
 
@@ -120,18 +122,42 @@ void SDL_Media::renderScore(int score)
             SDL_Rect textFrame;
             textFrame.w = textSurface->w;
             textFrame.h = textSurface->h;
-            textFrame.x = SCREEN_WIDTH - textSurface->w;
-            textFrame.y = 0;
-
+            textFrame.x = x - textSurface->w / 2;
+            textFrame.y = y;
             SDL_RenderCopy(renderer, textTexture, NULL, &textFrame);
         }
 
         SDL_FreeSurface(textSurface);
         SDL_DestroyTexture(textTexture);
         textTexture = nullptr;
+        textFont = nullptr;
     }
     else
     {
         printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
     }
+}
+
+
+void SDL_Media::renderScore(int score)
+{
+    std::string scoreText = "Score: " + std::to_string(score);
+    
+    renderText(scoreText.c_str(), 32, 50, 0);
+}
+
+
+void SDL_Media::renderGameOverScreen(int score)
+{
+    //clear();
+
+    std::string gameOverText = "Game over!";
+    renderText(gameOverText.c_str(), 50, SCREEN_WIDTH / 2, 50);
+
+
+    std::string endScoreText = "Your score: " + std::to_string(score);
+    renderText(endScoreText.c_str(), 40, SCREEN_WIDTH / 2 + 4, 0.25 * SCREEN_HEIGHT);
+
+    std::string promptText = "Press space to play again! Or press escape to quit.";
+    renderText(promptText.c_str(), 50, SCREEN_WIDTH / 2, 0.75 * SCREEN_HEIGHT);
 }

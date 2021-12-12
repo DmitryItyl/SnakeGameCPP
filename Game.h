@@ -31,12 +31,14 @@ public:
     void render();
     void clean();
     void genNewFood();
+    void handleEndGame();
 
+    bool repeatGame = false;
     Food* food;
     std::string foodTextureSource;
 private:
 
-    bool snake_alive;
+    bool snakeAlive;
 
     Snake* snake;
     SDL_Media* framework;

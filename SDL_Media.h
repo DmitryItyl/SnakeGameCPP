@@ -26,11 +26,16 @@ public:
 
     void renderScore(int score);
 
+    void renderGameOverScreen(int score);
+
+
     SDL_Texture* loadTexture(std::string source);
 
     SDL_Renderer* renderer = nullptr;
 
 private:
+
+    void renderText(std::string text, int fontSize, int x, int y);
     SDL_Window* window = nullptr;
     TTF_Font* font;
     SDL_Color textColor;
