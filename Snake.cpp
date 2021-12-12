@@ -5,6 +5,9 @@ Snake::Snake(int startX, int startY)
 {
     headSourceFilePath = "img/head.png";
     bodySourceFilePath = "img/segment.png";
+    turnSourceFilePath = "img/turn.png";
+    tailSourceFilePath = "img/tail.png";
+
     //addSegment();
 }
 
@@ -25,7 +28,7 @@ void Snake::addSegment()
     {
         Segment* seg = new Segment(640 / 2, 480 / 2, WEST);
         body.push_back(seg);
-        seg->texture = headTexture;
+        //seg->texture = headTexture;
     }
     else
     {
@@ -58,18 +61,21 @@ void Snake::addSegment()
         Segment* seg = new Segment(posX, posY, body.back()->direction);
         body.push_back(seg);
 
-        seg->texture = bodyTexture;
+        //seg->texture = bodyTexture;
     }
 }
 
 
 void Snake::move()
-{    
+{
     for (int i = body.size() - 1; i > 0; i--)
     {
         body[i]->x = body[i - 1]->x;
         body[i]->y = body[i - 1]->y;
-        body[i]->direction = body[i - 1]->direction; 
+        body[i]->direction = body[i - 1]->direction;
+        body[i]->isturn = body[i - 1]->isturn;
+        body[i]->turnAngle = body[i - 1]->turnAngle;
+
     }
 
     switch (body.front()->direction)
@@ -97,6 +103,19 @@ void Snake::move()
     default:
         break;
     }
+
+    // make first body segment a turn
+    if ((body.size()) > 2 && (body[1]->direction != body[2]->direction))
+    {
+        char turnAngle = body[1]->direction - body[2]->direction;
+        if ((turnAngle == 3) || (turnAngle == -3))
+            turnAngle = -turnAngle;
+
+        body[1]->isturn = true;
+        body[1]->turnAngle = body[2]->direction;
+        if (turnAngle < 0)
+            body[1]->turnAngle = body[1]->turnAngle == WEST ? NORTH : body[1]->turnAngle + 1;
+    }
 }
 
 
@@ -118,6 +137,31 @@ void Snake::setDirection(char dir)
         break;
     }
 
+    /*
+       
+    body.at(1)->isturn = true;
+
+    char old_direction = body.front()->direction;
+
+    if ((dir - old_direction) > 0)
+    {
+        body.at(1)->direction = old_direction;
+    }
+    else
+    {
+        switch (old_direction)
+        {
+        case NORTH:
+            body.at(1)->direction = EAST;
+        case EAST:
+            body.at(1)->direction = SOUTH;
+        case SOUTH:
+            body.at(1)->direction = WEST;
+        case WEST:
+            body.at(1)->direction = NORTH;
+        }
+    }
+    */
     body.front()->direction = dir;
 }
 
@@ -131,23 +175,27 @@ void Snake::render(SDL_Renderer* renderer)
             objCell.x = segment->x;
             objCell.y = segment->y;
 
-            int angle = 0;
-            switch (segment->direction)
+            int angle = segment->direction * 90;
+            SDL_Texture* texture = nullptr;
+            if (segment == body.front())
             {
-            case NORTH:
-                angle = 0;
-                break;
-            case EAST:
-                angle = 90;
-                break;
-            case SOUTH:
-                angle = 180;
-                break;
-            case WEST:
-                angle = 270;
-                break;
+                texture = headTexture;
+            }
+            else if (segment == body.back())
+            {
+                texture = tailTexture;
+            }
+            else if (segment->isturn)
+            {
+                //segment->texture = turnTexture;
+                texture = turnTexture;
+                angle = segment->turnAngle * 90;
+            }
+            else
+            {
+                texture = bodyTexture;
             }
 
-            SDL_RenderCopyEx(renderer, segment->texture, NULL, &objCell, angle, NULL, SDL_FLIP_NONE);      
+            SDL_RenderCopyEx(renderer, texture, NULL, &objCell, angle, NULL, SDL_FLIP_NONE);      
     }
 }

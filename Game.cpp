@@ -8,8 +8,13 @@ Game::Game()
 
     snake->headTexture = framework->loadTexture(snake->headSourceFilePath);
     snake->bodyTexture = framework->loadTexture(snake->bodySourceFilePath);
+    snake->turnTexture = framework->loadTexture(snake->turnSourceFilePath);
+    snake->tailTexture = framework->loadTexture(snake->tailSourceFilePath);
 
-    snake->addSegment();
+    for (int i = 0; i < 5; i++)
+    {
+        snake->addSegment();
+    }
 }
 
 

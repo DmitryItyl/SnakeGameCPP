@@ -12,17 +12,22 @@
 #include "GlobalConstants.h"
 
 static const char NORTH = 0;
-static const char WEST = 1;
+static const char EAST = 1;
 static const char SOUTH = 2;
-static const char EAST = 3;
+static const char WEST = 3;
 
 
 struct Segment
 {
     int x;
     int y;
-    SDL_Texture* texture;
+    //SDL_Texture* texture;
     char direction;
+
+    bool isturn = false;
+    char turnAngle = 0;
+    //char turnDirection = 0;
+
     Segment(int posX, int posY, char _direction)
     {
         x = posX;
@@ -44,11 +49,16 @@ public:
     void render(SDL_Renderer* renderer);
 
     std::vector<Segment*> body;
+
     std::string headSourceFilePath;
     std::string bodySourceFilePath;
+    std::string turnSourceFilePath;
+    std::string tailSourceFilePath;
     
     SDL_Texture* headTexture = nullptr;
     SDL_Texture* bodyTexture = nullptr;
+    SDL_Texture* turnTexture = nullptr;
+    SDL_Texture* tailTexture = nullptr;
 };
 
 #endif
