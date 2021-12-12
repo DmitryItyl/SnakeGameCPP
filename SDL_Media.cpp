@@ -101,13 +101,13 @@ SDL_Texture* SDL_Media::loadTexture(std::string source)
 }
 
 
-void SDL_Media::renderText(std::string text, int fontSize, int x, int y)
+void SDL_Media::renderText(std::string text, int fontSize, int x, int y, bool centered)
 {
     TTF_Font* textFont = TTF_OpenFont("font/calibri.ttf", fontSize);
 
 
     SDL_Color textColor = { 0xFF, 0xFF, 0xFF, 0xFF };
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
+    SDL_Surface* textSurface = TTF_RenderText_Solid(textFont, text.c_str(), textColor);
 
     if (textSurface != NULL)
     {
@@ -122,7 +122,7 @@ void SDL_Media::renderText(std::string text, int fontSize, int x, int y)
             SDL_Rect textFrame;
             textFrame.w = textSurface->w;
             textFrame.h = textSurface->h;
-            textFrame.x = x - textSurface->w / 2;
+            textFrame.x = centered ? x - textSurface->w / 2: x;
             textFrame.y = y;
             SDL_RenderCopy(renderer, textTexture, NULL, &textFrame);
         }
@@ -143,21 +143,26 @@ void SDL_Media::renderScore(int score)
 {
     std::string scoreText = "Score: " + std::to_string(score);
     
-    renderText(scoreText.c_str(), 32, 50, 0);
+    renderText(scoreText.c_str(), 32, 0, 0, false);
 }
 
 
 void SDL_Media::renderGameOverScreen(int score)
 {
-    //clear();
+    clear();
+
+    int textVerticalStart = 0.3 * SCREEN_HEIGHT;
 
     std::string gameOverText = "Game over!";
-    renderText(gameOverText.c_str(), 50, SCREEN_WIDTH / 2, 50);
+    renderText(gameOverText.c_str(), 64, SCREEN_WIDTH / 2, textVerticalStart, true);
 
 
     std::string endScoreText = "Your score: " + std::to_string(score);
-    renderText(endScoreText.c_str(), 40, SCREEN_WIDTH / 2 + 4, 0.25 * SCREEN_HEIGHT);
+    renderText(endScoreText.c_str(), 32, SCREEN_WIDTH / 2 + 4, textVerticalStart + 65, true);
 
-    std::string promptText = "Press space to play again! Or press escape to quit.";
-    renderText(promptText.c_str(), 50, SCREEN_WIDTH / 2, 0.75 * SCREEN_HEIGHT);
+    std::string promptText = "Press space to play again";
+    renderText(promptText.c_str(), 32, SCREEN_WIDTH / 2, textVerticalStart + 150, true);
+
+    promptText = "or press escape to quit.";
+    renderText(promptText.c_str(), 32, SCREEN_WIDTH / 2, textVerticalStart + 180, true);
 }

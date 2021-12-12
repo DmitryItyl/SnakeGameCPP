@@ -13,6 +13,6 @@ const int SCREEN_WIDTH = CELL_SIZE * GRID_W;
 const int SCREEN_HEIGHT = CELL_SIZE * GRID_H;
 
 
-const int FRAMERATE = 3;
+const int FRAME_DURATION = 400;
 
 #endif

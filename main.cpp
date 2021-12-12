@@ -11,8 +11,6 @@
 
 int main(int argc, char* args[])
 {
-    //SDL_Media framework;
-
     while (true)
     {
         Game game;

@@ -13,6 +13,7 @@ Game::Game()
     snake->tailTexture = framework->loadTexture(snake->tailSourceFilePath);
 
     srand(SDL_GetTicks());
+    frameDelay = FRAME_DURATION;
 
     food = new Food(0, 0);
     genNewFood();
@@ -33,10 +34,6 @@ Game::~Game()
 
 void Game::run()
 {
-    bool running = true;
-
-    const int frameDelay = 1000 / FRAMERATE;
-
     Uint32 frameTime;
     int frameElapsedTime;
 
@@ -94,6 +91,8 @@ void Game::update()
     {
         score++;
         genNewFood();
+        if (frameDelay > 50)
+            frameDelay -= 10;
     }
 
     Segment* head = snake->body.front();

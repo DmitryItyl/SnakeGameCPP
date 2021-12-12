@@ -35,7 +35,7 @@ public:
 
 private:
 
-    void renderText(std::string text, int fontSize, int x, int y);
+    void renderText(std::string text, int fontSize, int x, int y, bool centered);
     SDL_Window* window = nullptr;
     TTF_Font* font;
     SDL_Color textColor;

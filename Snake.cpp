@@ -32,8 +32,29 @@ void Snake::addSegment()
 
 {
     int posX, posY;
+    char newSegmentDirection = body.back()->direction;
+    if (body.back()->isturn)
+    {
+        char backTurn = body.back()->turnAngle;
+
+        switch (body.back()->direction)
+        {
+        case NORTH:
+            newSegmentDirection = backTurn == WEST ? WEST : EAST;
+            break;
+        case EAST:
+            newSegmentDirection = backTurn == NORTH ? NORTH : SOUTH;
+            break;
+        case SOUTH:
+            newSegmentDirection = backTurn == EAST ? EAST : WEST;
+            break;
+        case WEST:
+            newSegmentDirection = backTurn == SOUTH ? SOUTH : NORTH;
+            break;
+        }
+    }
         
-    switch (body.back()->direction)
+    switch (newSegmentDirection)
     {
     case NORTH:
         posX = body.back()->x;
@@ -57,7 +78,7 @@ void Snake::addSegment()
         break;
     }
 
-    Segment* seg = new Segment(posX, posY, body.back()->direction);
+    Segment* seg = new Segment(posX, posY, newSegmentDirection);
     body.push_back(seg);
 
     //seg->texture = bodyTexture;
@@ -67,6 +88,11 @@ void Snake::addSegment()
 void Snake::move()
 {
     body.front()->direction = newDirection;
+    if (elongating)
+    {
+        addSegment();
+        elongating = false;
+    }
 
     for (int i = body.size() - 1; i > 0; i--)
     {
@@ -198,6 +224,7 @@ bool Snake::checkFood(int x, int y)
 {
     if ((body.front()->x == x) && (body.front()->y == y))
     {
+        //elongating = true;
         addSegment();
         return true;
     }

@@ -44,6 +44,7 @@ private:
     SDL_Media* framework;
 
     int score = 0;
+    int frameDelay = 1000;
 };
 
 #endif
