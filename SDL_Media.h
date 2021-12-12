@@ -4,6 +4,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <cstdlib>
 #include <string>
 #include <vector>
@@ -23,7 +24,7 @@ public:
     void clear();
     void update();
 
-    void setPlayBoard(int cellSize);
+    void renderScore(int score);
 
     SDL_Texture* loadTexture(std::string source);
 
@@ -31,6 +32,8 @@ public:
 
 private:
     SDL_Window* window = nullptr;
+    TTF_Font* font;
+    SDL_Color textColor;
 };
 
 #endif

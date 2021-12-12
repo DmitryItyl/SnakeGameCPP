@@ -43,10 +43,11 @@ class Snake
 public:
     Snake(int startX, int startY);
     ~Snake();
-    void addSegment();
     void move();
     void setDirection(char dir);
     void render(SDL_Renderer* renderer);
+    bool checkFood(int x, int y);
+    bool detectCollision(int x, int y, bool checkHead);
 
     std::vector<Segment*> body;
 
@@ -54,11 +55,16 @@ public:
     std::string bodySourceFilePath;
     std::string turnSourceFilePath;
     std::string tailSourceFilePath;
+    std::string foodSourceFilePath;
     
     SDL_Texture* headTexture = nullptr;
     SDL_Texture* bodyTexture = nullptr;
     SDL_Texture* turnTexture = nullptr;
     SDL_Texture* tailTexture = nullptr;
+    SDL_Texture* foodTexture = nullptr;
+
+private:
+    void addSegment();
 };
 
 #endif

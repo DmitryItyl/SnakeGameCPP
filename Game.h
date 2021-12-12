@@ -4,6 +4,21 @@
 #include "Snake.h"
 #include "SDL_Media.h"
 
+
+struct Food
+{
+    int x;
+    int y;
+    SDL_Texture* texture;
+    Food(int posX, int posY)
+    {
+        x = posX;
+        y = posY;
+    }
+};
+
+
+
 class Game
 {
 
@@ -15,13 +30,18 @@ public:
     void update();
     void render();
     void clean();
+    void genNewFood();
 
+    Food* food;
+    std::string foodTextureSource;
 private:
+
+    bool snake_alive;
 
     Snake* snake;
     SDL_Media* framework;
 
-    const int cellSize = 40;
+    int score = 0;
 };
 
 #endif

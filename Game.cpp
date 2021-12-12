@@ -1,20 +1,25 @@
-#include "Game.h"
+#include <cstdlib>
 
+#include "Game.h"
 
 Game::Game()
 {
     framework = new SDL_Media();
-    snake = new Snake(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+    snake = new Snake(CELL_SIZE * 10, CELL_SIZE * 8);
 
     snake->headTexture = framework->loadTexture(snake->headSourceFilePath);
     snake->bodyTexture = framework->loadTexture(snake->bodySourceFilePath);
     snake->turnTexture = framework->loadTexture(snake->turnSourceFilePath);
     snake->tailTexture = framework->loadTexture(snake->tailSourceFilePath);
 
-    for (int i = 0; i < 5; i++)
-    {
-        snake->addSegment();
-    }
+
+
+    food = new Food(0, 0);
+    genNewFood();
+    
+
+    foodTextureSource = "img/food.png";
+    food->texture = framework->loadTexture(foodTextureSource);
 }
 
 
@@ -37,6 +42,7 @@ void Game::run()
     SDL_Event event;
     do
     {
+
         frameTime = SDL_GetTicks();
         while (SDL_PollEvent(&event))
         {
@@ -55,9 +61,6 @@ void Game::run()
                     break;
                 case SDLK_LEFT:
                     snake->setDirection(WEST);
-                    break;
-                case SDLK_RETURN:
-                    snake->addSegment();
                     break;
                 default:
                     break;
@@ -82,10 +85,37 @@ void Game::run()
 void Game::update()
 {
     snake->move();
+    if (snake->checkFood(food->x, food->y))
+    {
+        score++;
+        genNewFood();
+    }
 }
 
 
 void Game::render()
 {
     snake->render(framework->renderer);
+
+
+    SDL_Rect foodCell;
+
+    foodCell.x = food->x;
+    foodCell.y = food->y;
+    foodCell.w = foodCell.h = CELL_SIZE;
+
+    SDL_RenderCopy(framework->renderer, food->texture, NULL, &foodCell);
+
+    framework->renderScore(score);
+}
+
+
+void Game::genNewFood()
+{
+    do
+    {
+        food->x = rand() % GRID_W * CELL_SIZE;
+        food->y = rand() % GRID_H * CELL_SIZE;
+    } while (snake->detectCollision(food->x, food->y, true));
+
 }

@@ -7,8 +7,15 @@ Snake::Snake(int startX, int startY)
     bodySourceFilePath = "img/segment.png";
     turnSourceFilePath = "img/turn.png";
     tailSourceFilePath = "img/tail.png";
+    foodSourceFilePath = "img/food.png";   
 
-    //addSegment();
+    Segment* seg = new Segment(startX, startY, EAST);
+    body.push_back(seg);
+
+    for (int i = 0; i < 3; i++)
+    {
+        addSegment();
+    }
 }
 
 
@@ -24,45 +31,36 @@ Snake::~Snake()
 void Snake::addSegment()
 
 {
-    if (!body.size())
-    {
-        Segment* seg = new Segment(640 / 2, 480 / 2, WEST);
-        body.push_back(seg);
-        //seg->texture = headTexture;
-    }
-    else
-    {
-        int posX, posY;
+    int posX, posY;
         
-        switch (body.back()->direction)
-        {
-        case NORTH:
-            posX = body.back()->x;
-            posY = body.back()->y + CELL_SIZE;
-            break;
-        case WEST:
-            posX = body.back()->x + CELL_SIZE;
-            posY = body.back()->y;
-            break;
-        case SOUTH:
-            posX = body.back()->x;
-            posY = body.back()->y - CELL_SIZE;
-            break;
-        case EAST:
-            posX = body.back()->x - CELL_SIZE;
-            posY = body.back()->y;
-            break;
-        default:
-            posX = 0;
-            posY = 0;
-            break;
-        }
-
-        Segment* seg = new Segment(posX, posY, body.back()->direction);
-        body.push_back(seg);
-
-        //seg->texture = bodyTexture;
+    switch (body.back()->direction)
+    {
+    case NORTH:
+        posX = body.back()->x;
+        posY = body.back()->y + CELL_SIZE;
+        break;
+    case WEST:
+        posX = body.back()->x + CELL_SIZE;
+        posY = body.back()->y;
+        break;
+    case SOUTH:
+        posX = body.back()->x;
+        posY = body.back()->y - CELL_SIZE;
+        break;
+    case EAST:
+        posX = body.back()->x - CELL_SIZE;
+        posY = body.back()->y;
+        break;
+    default:
+        posX = 0;
+        posY = 0;
+        break;
     }
+
+    Segment* seg = new Segment(posX, posY, body.back()->direction);
+    body.push_back(seg);
+
+    //seg->texture = bodyTexture;
 }
 
 
@@ -136,32 +134,6 @@ void Snake::setDirection(char dir)
         if (dir == WEST) return;
         break;
     }
-
-    /*
-       
-    body.at(1)->isturn = true;
-
-    char old_direction = body.front()->direction;
-
-    if ((dir - old_direction) > 0)
-    {
-        body.at(1)->direction = old_direction;
-    }
-    else
-    {
-        switch (old_direction)
-        {
-        case NORTH:
-            body.at(1)->direction = EAST;
-        case EAST:
-            body.at(1)->direction = SOUTH;
-        case SOUTH:
-            body.at(1)->direction = WEST;
-        case WEST:
-            body.at(1)->direction = NORTH;
-        }
-    }
-    */
     body.front()->direction = dir;
 }
 
@@ -198,4 +170,35 @@ void Snake::render(SDL_Renderer* renderer)
 
             SDL_RenderCopyEx(renderer, texture, NULL, &objCell, angle, NULL, SDL_FLIP_NONE);      
     }
+}
+
+
+
+bool Snake::detectCollision(int x, int y, bool checkHead)
+{
+    for (auto segment : body)
+    {
+        if (!checkHead && segment == body.front())
+        {
+            continue;
+        }
+        if ((segment->x == x) && (segment->y == y))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
+bool Snake::checkFood(int x, int y)
+{
+    if ((body.front()->x == x) && (body.front()->y == y))
+    {
+        addSegment();
+        return true;
+    }
+    
+    return false;
 }
