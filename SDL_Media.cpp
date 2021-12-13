@@ -87,7 +87,7 @@ SDL_Texture* SDL_Media::loadTexture(std::string source)
     SDL_Surface* tempSurface = IMG_Load(source.c_str());
     if (!tempSurface)
     {
-        printf("Failed to load image %s! SDL Image Error: ", source.c_str(), IMG_GetError());
+        printf("Failed to load image %s! SDL Image Error: %s", source.c_str(), IMG_GetError());
     }
     else
     {

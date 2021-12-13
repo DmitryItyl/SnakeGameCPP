@@ -14,6 +14,7 @@ struct Food
     {
         x = posX;
         y = posY;
+        texture = nullptr;
     }
 };
 

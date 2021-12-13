@@ -28,7 +28,14 @@ Game::Game()
 Game::~Game()
 {
     delete snake;
+    snake = nullptr;
+
     delete framework;
+    framework = nullptr;
+
+    food->texture = nullptr;
+    delete food;
+    
 }
 
 

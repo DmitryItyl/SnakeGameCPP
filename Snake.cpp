@@ -25,6 +25,21 @@ Snake::~Snake()
     {
         delete seg;
     }
+
+    SDL_DestroyTexture(headTexture);
+    headTexture = nullptr;
+
+    SDL_DestroyTexture(bodyTexture);
+    bodyTexture = nullptr;
+
+    SDL_DestroyTexture(turnTexture);
+    turnTexture = nullptr;
+
+    SDL_DestroyTexture(tailTexture);
+    tailTexture = nullptr;
+
+    SDL_DestroyTexture(foodTexture);
+    foodTexture = nullptr;
 }
 
 
@@ -80,8 +95,6 @@ void Snake::addSegment()
 
     Segment* seg = new Segment(posX, posY, newSegmentDirection);
     body.push_back(seg);
-
-    //seg->texture = bodyTexture;
 }
 
 
@@ -187,7 +200,6 @@ void Snake::render(SDL_Renderer* renderer)
             }
             else if (segment->isturn)
             {
-                //segment->texture = turnTexture;
                 texture = turnTexture;
                 angle = segment->turnAngle * 90;
             }
@@ -224,7 +236,6 @@ bool Snake::checkFood(int x, int y)
 {
     if ((body.front()->x == x) && (body.front()->y == y))
     {
-        //elongating = true;
         addSegment();
         return true;
     }

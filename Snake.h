@@ -21,12 +21,10 @@ struct Segment
 {
     int x;
     int y;
-    //SDL_Texture* texture;
     char direction;
 
     bool isturn = false;
     char turnAngle = 0;
-    //char turnDirection = 0;
 
     Segment(int posX, int posY, char _direction)
     {
